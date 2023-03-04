@@ -25,7 +25,7 @@ const randomDataBlog = (n)=>{
 //iife
 (()=>{
   //random data 
-  const data = randomDataBlog(20)
+  const data = randomDataBlog(10)
 
   //prepare db ob
   const db = {
