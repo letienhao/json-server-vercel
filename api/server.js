@@ -31,7 +31,26 @@ server.get('/echo', (req, res) => {
     }
     next()
   })
-  
+  //custom output for list with pagination
+router.render= (req,res)=>{
+  //check get with pagination
+  const queryParam = res.getHeaders()
+  const xTotalCount = queryParam['x-total-count']
+  //if yes custom output ;
+  if(req.method === 'GET' && xTotalCount){
+    const convertString = Object.fromEntries(new URLSearchParams(req._parsedUrl.query))
+    const result = {
+      data : res.locals.data,
+      pagination:{
+        _limit: Number.parseInt(convertString._limit) ,
+        _page : Number.parseInt(convertString._page),
+        _totalRows: Number.parseInt(xTotalCount)
+      }
+    }
+   return res.jsonp(result)
+  }
+  res.jsonp(res.locals.data)
+}
 server.use(router)
 server.listen(4000, () => {
     console.log('JSON Server is running')
