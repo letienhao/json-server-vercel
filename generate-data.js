@@ -36,7 +36,7 @@ const randomDataBlog = (n)=>{
   
   // write db ob to db.json
   const filePath = path.join("./", "db.json");
-  fs.writeFile(filePath,JSON.stringify(db),()=>{
+  fs.writeFileSync(filePath,JSON.stringify(db),()=>{
     console.log('write data successfully 000')
   })
 })()
